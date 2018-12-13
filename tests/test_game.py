@@ -15,3 +15,6 @@ class GameTest(unittest.TestCase):
         sys.stdout = sys.__stdout__
         output = captured_output.getvalue()
         self.assertEqual('hi\n', output)
+
+if __name__ == '__main__':
+    unittest.main()

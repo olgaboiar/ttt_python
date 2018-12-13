@@ -56,6 +56,8 @@ jobs:
             # python manage.py test
             behave
             # run behave tests
+            python -m unittest discover tests
+            # run all unittests
 
       - store_artifacts:
           path: test-reports
