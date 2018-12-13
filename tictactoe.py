@@ -1,9 +1,4 @@
-class Game():
-    def __init__(self):
-        pass
+from game import Game
 
-    def start(self):
-        print("hi")
-
-mygame = Game()
-mygame.start()
+game = Game()
+game.start()
