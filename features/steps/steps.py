@@ -1,20 +1,23 @@
+"""These are the steps to test welcome feature"""
 import io
 import sys
 # from behave import context
-from behave import given, when, then
+# from behave import given, when, then
 from tictactoe import Game
-
+# given = given
 @given('new Game')
-def step_impl(context):
+def create_game(context):
+    """Creates new game."""
     context.game = Game()
 
 @when('game starts')
-def step_impl(context):
+def start_game(context):
+    """Starts the game."""
     context.game.start()
 
 @then('welcoming message is shown')
-def step_impl(context):
-    pass
+def print_message(context):
+    """Checks if starting the game prints welcome message."""
     captured_output = io.StringIO()
     sys.stdout = captured_output
     context.game.start()
