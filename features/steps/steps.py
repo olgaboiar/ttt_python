@@ -1,7 +1,8 @@
-from behave import *
-from tictactoe import *
 import io
 import sys
+# from behave import context
+from behave import given, when, then
+from tictactoe import Game
 
 @given('new Game')
 def step_impl(context):
@@ -13,10 +14,10 @@ def step_impl(context):
 
 @then('welcoming message is shown')
 def step_impl(context):
-  pass
-  capturedOutput = io.StringIO()
-  sys.stdout = capturedOutput
-  context.game.start()                                 
-  sys.stdout = sys.__stdout__
-  output = capturedOutput.getvalue()
-  assert ('hi\n' == output)
+    pass
+    captured_output = io.StringIO()
+    sys.stdout = captured_output
+    context.game.start()
+    sys.stdout = sys.__stdout__
+    output = captured_output.getvalue()
+    assert output == 'hi\n'
