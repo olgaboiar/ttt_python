@@ -53,6 +53,8 @@ jobs:
           command: |
             . venv/bin/activate
             # python manage.py test
+            behave
+            # run behave tests
 
       - store_artifacts:
           path: test-reports
