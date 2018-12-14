@@ -1,4 +1,6 @@
 from game import Game
+from ui import Ui
 
-game = Game()
+user_interface = Ui()
+game = Game(user_interface)
 game.start()

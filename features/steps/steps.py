@@ -1,10 +1,12 @@
 import io
 import sys
 from game import Game
+from ui import Ui
 
 @given('new Game')
 def create_game(context):
-    context.game = Game()
+    user_interface = Ui()
+    context.game = Game(user_interface)
 
 @when('game starts')
 def start_game(context):
@@ -17,4 +19,4 @@ def print_message(context):
     context.game.start()
     sys.stdout = sys.__stdout__
     output = captured_output.getvalue()
-    assert output == 'hi\n'
+    assert output == 'Welcome to the Python TicTacToe\n'
