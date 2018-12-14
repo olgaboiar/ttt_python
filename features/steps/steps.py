@@ -1,20 +1,17 @@
 import io
 import sys
-# from behave import context
-from behave import given, when, then
-from tictactoe import Game
+from game import Game
 
 @given('new Game')
-def step_impl(context):
+def create_game(context):
     context.game = Game()
 
 @when('game starts')
-def step_impl(context):
+def start_game(context):
     context.game.start()
 
 @then('welcoming message is shown')
-def step_impl(context):
-    pass
+def print_message(context):
     captured_output = io.StringIO()
     sys.stdout = captured_output
     context.game.start()
