@@ -4,6 +4,7 @@ class Game:
 
     def start(self):
         self.user_interface.greet()
-        # get symbol
+        # create players
+          # get symbol
         self.user_interface.print_board()
         # play game
