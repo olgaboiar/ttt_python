@@ -19,5 +19,17 @@ class GameTest(unittest.TestCase):
         output = captured_output.getvalue()
         self.assertEqual('Welcome to the Python TicTacToe\n', output)
 
+    def test_print_board(self):
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+
+        self.user_interface = Ui()
+        self.user_interface.print_board()
+
+        sys.stdout = sys.__stdout__
+
+        output = captured_output.getvalue()
+        self.assertEqual('\n           1  |  2  |  3\n         -----------------\n           4  |  5  |  6\n         -----------------\n           7  |  8  |  9\n        \n', output)
+
 if __name__ == '__main__':
     unittest.main()
