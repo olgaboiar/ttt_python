@@ -30,12 +30,12 @@ class Ui:
             else:
                 symbol = None
 
-    def choose_move(self):
+    def choose_move(self, board):
         text = "Enter a number to make your move:\n"
         move = None
         while not move:
             move = self.get_input(text)
-            if self.input_validator.valid_move(move):
+            if self.input_validator.valid_move(move) and int(move) in board.available_spots():
                 return move
             else:
                 move = None

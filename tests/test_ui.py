@@ -29,7 +29,7 @@ class UiTest(unittest.TestCase):
     def test_printing_board_whrn_board_is_not_empty(self):
         captured_output = io.StringIO()
         sys.stdout = captured_output
-        self.board.insert_value(1, 'X')
+        self.board.insert_value(2, 'X')
         self.user_interface.print_board(self.board)
         sys.stdout = sys.__stdout__
         output = captured_output.getvalue()
@@ -56,7 +56,15 @@ class UiTest(unittest.TestCase):
 
     def test_choose_move_will_ask_again_until_input_is_valid(self):
         self.user_interface.get_input = mock.MagicMock(side_effect = ['0', '10000', '5'])
-        move = self.user_interface.choose_move()
+        move = self.user_interface.choose_move(self.board)
+        self.assertEqual(move, '5')
+
+    def test_choose_move_will_ask_again_until_input_is_valid_when_user_entered_the_taken_cell(self):
+        self.board.insert_value(2, 'X')
+        self.board.insert_value(3, 'O')
+        self.board.insert_value(4, 'X')
+        self.user_interface.get_input = mock.MagicMock(side_effect = ['2', '3', '5'])
+        move = self.user_interface.choose_move(self.board)
         self.assertEqual(move, '5')
 
 

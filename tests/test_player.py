@@ -16,7 +16,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(symbol, 'O')
 
     def test_move_when_user_entered_valid_move_option(self):
-        self.player.move(self.board, 3, 'O')
+        self.player.move(self.board, 4, 'O')
         board_spot_value = self.board.get_value(3)
         self.assertEqual(board_spot_value, 'O')
 
