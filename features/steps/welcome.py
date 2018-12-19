@@ -6,12 +6,14 @@ from ui import Ui
 @given('new Game')
 def create_game(context):
     context.user_interface = Ui()
-    # context.game = Game(context.user_interface)
+    context.game = Game(context.user_interface)
 
 @when('game starts')
 def start_game(context):
-    # context.game.start()
-    pass
+    user_input = io.StringIO('x')
+    sys.stdin = user_input
+    context.game.start()
+    sys.stdin = sys.__stdin__
 
 @then('welcoming message is shown')
 def print_message(context):
