@@ -7,14 +7,15 @@ class Ui:
     def greet(self):
         print("Welcome to the Python TicTacToe")
 
-    def print_board(self):
+    def print_board(self, board):
+        current_board = board.all_spots()
         print("""
-          1 | 2 | 3
+          {} | {} | {}
          -----------
-          4 | 5 | 6
+          {} | {} | {}
          -----------
-          7 | 8 | 9
-        """)
+          {} | {} | {}
+        """.format(*current_board))
 
     def get_input(self, text):
         return input(text)
@@ -28,3 +29,13 @@ class Ui:
                 return symbol
             else:
                 symbol = None
+
+    def choose_move(self):
+        text = "Enter a number to make your move:\n"
+        move = None
+        while not move:
+            move = self.get_input(text)
+            if self.input_validator.valid_move(move):
+                return move
+            else:
+                move = None
