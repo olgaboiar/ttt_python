@@ -10,7 +10,10 @@ def create_game(context):
 
 @when('game starts')
 def start_game(context):
+    user_input = io.StringIO('x')
+    sys.stdin = user_input
     context.game.start()
+    sys.stdin = sys.__stdin__
 
 @then('welcoming message is shown')
 def print_message(context):

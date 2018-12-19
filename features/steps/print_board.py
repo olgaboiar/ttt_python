@@ -1,16 +1,5 @@
 import io
 import sys
-from game import Game
-from ui import Ui
-
-@given('new Game starts')
-def game_start(context):
-    context.user_interface = Ui()
-    context.game = Game(context.user_interface)
-
-@when('after the welcome message')
-def start_game(context):
-    context.game.start()
 
 @then('new game board is printed')
 def print_board(context):
