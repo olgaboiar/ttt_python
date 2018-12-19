@@ -33,18 +33,20 @@ class UiTest(unittest.TestCase):
         user_input = self.user_interface.get_input("text")
         self.assertNotEqual(user_input, '2')
 
-    def test_choose_marker_for_the_first_human_player(self):
-        self.user_interface.get_input = mock.MagicMock(side_effect = ['X', 'x', 'o', 'O', 'd', '-', '1', 'o'])
+    def test_choose_marker_will_ask_again_until_input_is_valid(self):
+        self.user_interface.get_input = mock.MagicMock(side_effect = ['-', 'X'])
+
         symbol = self.user_interface.choose_marker()
+
         self.assertEqual(symbol, 'X')
+
+    def test_choose_marker_will_upcase_input(self):
+        self.user_interface.get_input = mock.MagicMock(side_effect = ['x'])
+
         symbol = self.user_interface.choose_marker()
+
         self.assertEqual(symbol, 'X')
-        symbol = self.user_interface.choose_marker()
-        self.assertEqual(symbol, 'O')
-        symbol = self.user_interface.choose_marker()
-        self.assertEqual(symbol, 'O')
-        symbol = self.user_interface.choose_marker()
-        self.assertEqual(symbol, 'O')
+
 
 if __name__ == '__main__':
     unittest.main()
