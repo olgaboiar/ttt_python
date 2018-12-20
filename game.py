@@ -25,7 +25,7 @@ class Game:
             self.user_interface.print_board(self.board)
             current_player, next_player = next_player, current_player
             current_marker, next_marker = next_marker, current_marker
-            
+        self.user_interface.game_over()
 
     def horizontal_win(self, board):
         if board.spots[0] == board.spots[1] == board.spots[2] or board.spots[3] == board.spots[4] == board.spots[5] or board.spots[6] == board.spots[7] == board.spots[8]:
@@ -38,7 +38,7 @@ class Game:
     def diagonal_win(self, board):
         if board.spots[0] == board.spots[4] == board.spots[8] or board.spots[2] == board.spots[4] == board.spots[6]:
             return True
-    
+
     def win(self, board):
         if self.horizontal_win(board) or self.vertical_win(board) or self.diagonal_win(board):
             return True

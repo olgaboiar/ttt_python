@@ -67,6 +67,14 @@ class UiTest(unittest.TestCase):
         move = self.user_interface.choose_move(self.board)
         self.assertEqual(move, '5')
 
+    def test_game_over_message(self):
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        self.user_interface.game_over()
+        sys.stdout = sys.__stdout__
+        output = captured_output.getvalue()
+        self.assertEqual('Game over!\n', output)
+
 
 if __name__ == '__main__':
     unittest.main()
