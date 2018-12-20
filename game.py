@@ -1,14 +1,23 @@
 from player import Player
+from board import Board
 
 class Game:
     def __init__(self, user_interface):
         self.user_interface = user_interface
+        self.board = Board()
 
     def start(self):
         self.user_interface.greet()
+        self.user_interface.print_board(self.board)
+        
+    def play(self):
         marker1 = self.user_interface.choose_marker()
         player1 = Player(marker1)
         marker2 = player1.define_marker(marker1)
-        print(marker1)
-        print(marker2)
-        self.user_interface.print_board()
+        player2 = Player(marker2)
+        move1 = self.user_interface.choose_move(self.board)
+        player1.move(self.board, move1, marker1)
+        self.user_interface.print_board(self.board)
+        move2 = self.user_interface.choose_move(self.board)
+        player2.move(self.board, move2, marker2)
+        self.user_interface.print_board(self.board)

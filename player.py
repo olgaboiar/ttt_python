@@ -1,4 +1,3 @@
-
 class Player:
     def __init__(self, marker):
         self.marker = marker
@@ -9,3 +8,6 @@ class Player:
         else:
             other_marker = 'O'
         return other_marker
+
+    def move(self, board, spot, marker):
+        board.insert_value(spot, marker)

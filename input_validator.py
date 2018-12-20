@@ -5,3 +5,7 @@ class InputValidator:
     def valid_marker(self, marker):
         if marker in ('X', 'O'):
             return True
+
+    def valid_move(self, move):
+        if int(move) in range(1, 9):
+            return True
