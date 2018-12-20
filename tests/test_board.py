@@ -64,6 +64,5 @@ class TestBoard(unittest.TestCase):
         all_spots = self.board.all_spots()
         self.assertEqual(all_spots, ['X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'])
 
-
 if __name__ == '__main__':
     unittest.main()
