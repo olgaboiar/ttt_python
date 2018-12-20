@@ -130,5 +130,69 @@ class GameTest(unittest.TestCase):
         self.board.insert_value(9, 'X')
         self.assertEqual(None, self.game.win(self.board))
 
+    def test_tie_when_board_is_tie(self):
+        self.board.insert_value(1, 'X')
+        self.board.insert_value(2, 'O')
+        self.board.insert_value(3, 'X')
+        self.board.insert_value(5, 'O')
+        self.board.insert_value(4, 'X')
+        self.board.insert_value(6, 'O')
+        self.board.insert_value(8, 'X')
+        self.board.insert_value(7, 'O')
+        self.board.insert_value(9, 'X')
+        self.assertEqual(True, self.game.tie(self.board))
+
+    def test_tie_when_board_is_empty(self):
+        self.assertEqual(None, self.game.tie(self.board))
+
+    def test_tie_when_neither_win_nor_tie_is_reached(self):
+        self.board.insert_value(1, 'X')
+        self.board.insert_value(2, 'O')
+        self.board.insert_value(3, 'X')
+        self.board.insert_value(5, 'O')
+        self.board.insert_value(4, 'X')
+        self.assertEqual(None, self.game.tie(self.board))
+
+    def test_tie_when_second_diagonal_is_all_o(self):
+        self.board.insert_value(1, 'X')
+        self.board.insert_value(3, 'O')
+        self.board.insert_value(9, 'X')
+        self.board.insert_value(5, 'O')
+        self.board.insert_value(2, 'X')
+        self.board.insert_value(7, 'O')
+        self.assertEqual(None, self.game.tie(self.board))
+
+    def test_game_over_when_board_is_empty(self):
+        self.assertEqual(None, self.game.game_over(self.board))
+
+    def test_game_over_when_neither_win_nor_tie_is_reached(self):
+        self.board.insert_value(1, 'X')
+        self.board.insert_value(2, 'O')
+        self.board.insert_value(3, 'X')
+        self.board.insert_value(5, 'O')
+        self.board.insert_value(4, 'X')
+        self.assertEqual(None, self.game.game_over(self.board))
+
+    def test_game_over_when_board_is_tie(self):
+        self.board.insert_value(1, 'X')
+        self.board.insert_value(2, 'O')
+        self.board.insert_value(3, 'X')
+        self.board.insert_value(5, 'O')
+        self.board.insert_value(4, 'X')
+        self.board.insert_value(6, 'O')
+        self.board.insert_value(8, 'X')
+        self.board.insert_value(7, 'O')
+        self.board.insert_value(9, 'X')
+        self.assertEqual(True, self.game.game_over(self.board))
+
+    def test_game_over_when_second_diagonal_is_all_o(self):
+        self.board.insert_value(1, 'X')
+        self.board.insert_value(3, 'O')
+        self.board.insert_value(9, 'X')
+        self.board.insert_value(5, 'O')
+        self.board.insert_value(2, 'X')
+        self.board.insert_value(7, 'O')
+        self.assertEqual(True, self.game.game_over(self.board))
+
 if __name__ == '__main__':
     unittest.main()
