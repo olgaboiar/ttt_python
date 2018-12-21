@@ -7,5 +7,5 @@ class InputValidator:
             return True
 
     def valid_move(self, move):
-        if int(move) in range(1, 9):
+        if int(move) in range(1, 10):
             return True

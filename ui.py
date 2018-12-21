@@ -39,3 +39,6 @@ class Ui:
                 return move
             else:
                 move = None
+
+    def game_over(self):
+        print("Game over!")

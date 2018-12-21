@@ -7,7 +7,7 @@ def choose_marker(context):
     user_input = io.StringIO('x')
     sys.stdout = captured_output
     sys.stdin = user_input
-    context.user_interface.choose_marker()
+    context.game.create_players()
     sys.stdout = sys.__stdout__
     sys.stdin = sys.__stdin__
     output = captured_output.getvalue()
