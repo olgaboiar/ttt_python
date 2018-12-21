@@ -2,23 +2,17 @@ import io
 import sys
 from board import Board
 
-
-@when('players move until all cells are taken but no win reached')
-def game_tie(context):
+@given('the board is one move away from a tie')
+def game_almost_tie(context):
     context.board = Board()
-    context.board.insert_value(1, 'X')
-    context.board.insert_value(2, 'O')
-    context.board.insert_value(3, 'X')
-    context.board.insert_value(5, 'O')
-    context.board.insert_value(4, 'X')
-    context.board.insert_value(6, 'O')
-    context.board.insert_value(8, 'X')
-    context.board.insert_value(7, 'O')
-    context.board.insert_value(9, 'X')
-    
+    context.board.spots = ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'X', 9]
 
-@then('game over message is printed for tie')
-def game_over_for_tie(context):
+@when('player places the final move and tie is reached')
+def game_final_move_tie(context):
+    context.board.insert_value(9, 'X')
+
+@then('game over message is printed')
+def game_over(context):
     user_input = io.StringIO('x')
     sys.stdin = user_input
     captured_output = io.StringIO()
@@ -27,69 +21,37 @@ def game_over_for_tie(context):
     sys.stdout = sys.__stdout__
     sys.stdin = sys.__stdin__
     output = captured_output.getvalue()
-    assert output == 'Choose the symbol you want to play with: X or O. Enter x or o:\n\n          X | O | X\n         -----------\n          X | O | O\n         -----------\n          O | X | X\n        \nGame over!\n'
+    assert 'Game over!' in output
 
-@when('players move until horizontal win is reached')
+    # Scenario: diagonal win game over
+    #     Given new Game
+    #     And the board is one move away from a diagonal win
+    #     When player places the final move and diagonal win is reached
+    #     Then game over message is printed
+
+@given('the board is one move away from horizontal win')
 def game_horizontal_win(context):
     context.board = Board()
-    context.board.insert_value(1, 'X')
+    context.board.spots = ['X', 2, 'X', 'O', 5, 'O', 'X', 8, 9]
+
+@when('player places the final move and horizontal win is reached')
+def game_final_move_horizontal_win(context):
     context.board.insert_value(5, 'O')
-    context.board.insert_value(3, 'X')
-    context.board.insert_value(4, 'O')
-    context.board.insert_value(2, 'X')
-    
 
-@then('game over message is printed for horizontal win')
-def game_over_for_horizontal_win(context):
-    user_input = io.StringIO('x')
-    sys.stdin = user_input
-    captured_output = io.StringIO()
-    sys.stdout = captured_output
-    context.game.play(context.board)
-    sys.stdout = sys.__stdout__
-    sys.stdin = sys.__stdin__
-    output = captured_output.getvalue()
-    assert output == 'Choose the symbol you want to play with: X or O. Enter x or o:\n\n          X | X | X\n         -----------\n          O | O | 6\n         -----------\n          7 | 8 | 9\n        \nGame over!\n'
-
-@when('players move until vertical win is reached')
+@given('the board is one move away from vertical win')
 def game_vertical_win(context):
     context.board = Board()
-    context.board.insert_value(1, 'X')
-    context.board.insert_value(2, 'O')
-    context.board.insert_value(4, 'X')
-    context.board.insert_value(5, 'O')
-    context.board.insert_value(7, 'X')
+    context.board.spots = [1, 2, 'X', 'O', 'O', 'X', 7, 8, 9]
 
-@then('game over message is printed for vertical win')
-def game_over_for_vertical_win(context):
-    user_input = io.StringIO('x')
-    sys.stdin = user_input
-    captured_output = io.StringIO()
-    sys.stdout = captured_output
-    context.game.play(context.board)
-    sys.stdout = sys.__stdout__
-    sys.stdin = sys.__stdin__
-    output = captured_output.getvalue()
-    assert output == 'Choose the symbol you want to play with: X or O. Enter x or o:\n\n          X | O | 3\n         -----------\n          X | O | 6\n         -----------\n          X | 8 | 9\n        \nGame over!\n'
-
-@when('players move until diagonal win is reached')
-def game_diagonal_win(context):
-    context.board = Board()
-    context.board.insert_value(1, 'X')
-    context.board.insert_value(2, 'O')
-    context.board.insert_value(5, 'X')
-    context.board.insert_value(7, 'O')
+@when('player places the final move and vertical win is reached')
+def game_final_move_vertical_win(context):
     context.board.insert_value(9, 'X')
 
-@then('game over message is printed for diagonal win')
-def game_over_for_diagonal_win(context):
-    user_input = io.StringIO('x')
-    sys.stdin = user_input
-    captured_output = io.StringIO()
-    sys.stdout = captured_output
-    context.game.play(context.board)
-    sys.stdout = sys.__stdout__
-    sys.stdin = sys.__stdin__
-    output = captured_output.getvalue()
-    assert output == 'Choose the symbol you want to play with: X or O. Enter x or o:\n\n          X | O | 3\n         -----------\n          4 | X | 6\n         -----------\n          O | 8 | X\n        \nGame over!\n'
+@given('the board is one move away from a diagonal win')
+def game_diagonal_win(context):
+    context.board = Board()
+    context.board.spots = ['X', 'O', 3, 'O', 'X', 6, 7, 8, 9]
 
+@when('player places the final move and diagonal win is reached')
+def game_final_move_diagonal_win(context):
+    context.board.insert_value(9, 'X')

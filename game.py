@@ -40,8 +40,7 @@ class Game:
             return True
 
     def win(self, board):
-        if self.horizontal_win(board) or self.vertical_win(board) or self.diagonal_win(board):
-            return True
+        return self.horizontal_win(board) or self.vertical_win(board) or self.diagonal_win(board)
 
     def tie(self, board):
         available_spots = board.available_spots()
