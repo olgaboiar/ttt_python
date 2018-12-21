@@ -5,29 +5,21 @@ Feature: game over
 
     Scenario: tie game over
         Given new Game
-        And first player selects "X" as their symbol
-        And new game board is printed
-        And players move until all cells are taken but no win reached
-        Then game over tie message is printed
+        When players move until all cells are taken but no win reached
+        Then game over message is printed for tie
 
     Scenario: horizontal win game over
         Given new Game
-        And first player selects "X" as their symbol
-        And new game board is printed
-        And players move until horizontal win is reached
-        Then game over tie message is printed
+        When players move until horizontal win is reached
+        Then game over message is printed for horizontal win
 
     Scenario: vertical win game over
         Given new Game
-        And first player selects "X" as their symbol
-        And new game board is printed
-        And players move until vertical win is reached
-        Then game over tie message is printed
+        When players move until vertical win is reached
+        Then game over message is printed for vertical win
 
     Scenario: diagonal win game over
         Given new Game
-        And first player selects "X" as their symbol
-        And new game board is printed
-        And players move until diagonal win is reached
-        Then game over tie message is printed
+        When players move until diagonal win is reached
+        Then game over message is printed for diagonal win
 
