@@ -32,5 +32,4 @@ class Game:
     def set_current_player(self, player1, player2):
         if player1.marker == 'X':
             return player1, player1.marker, player2, player2.marker
-        
         return player2, player2.marker, player1, player1.marker
