@@ -52,15 +52,15 @@ class RulesTest(unittest.TestCase):
         self.assertEqual(True, self.rules.win(self.board))
 
     def test_win_when_board_is_empty(self):
-        self.assertEqual(None, self.rules.win(self.board))
+        self.assertEqual(False, self.rules.win(self.board))
 
     def test_win_when_board_is_not_empty_but_no_winning_scenario_reached(self):
         self.board.spots = ['X', 'X', 'O', 4, 'O', 'O', 7, 8, 'X']
-        self.assertEqual(None, self.rules.win(self.board))
+        self.assertEqual(False, self.rules.win(self.board))
 
     def test_win_when_board_is_tie(self):
         self.board.spots = ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'X', 'X']
-        self.assertEqual(None, self.rules.win(self.board))
+        self.assertEqual(False, self.rules.win(self.board))
 
     def test_tie_when_board_is_tie(self):
         self.board.spots = ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'X', 'X']

@@ -3,16 +3,13 @@ class GameRules:
         pass
 
     def horizontal_win(self, board):
-        if board.spots[0] == board.spots[1] == board.spots[2] or board.spots[3] == board.spots[4] == board.spots[5] or board.spots[6] == board.spots[7] == board.spots[8]:
-            return True
+        return board.spots[0] == board.spots[1] == board.spots[2] or board.spots[3] == board.spots[4] == board.spots[5] or board.spots[6] == board.spots[7] == board.spots[8]
 
     def vertical_win(self, board):
-        if board.spots[0] == board.spots[3] == board.spots[6] or board.spots[1] == board.spots[4] == board.spots[7] or board.spots[2] == board.spots[5] == board.spots[8]:
-            return True
+        return board.spots[0] == board.spots[3] == board.spots[6] or board.spots[1] == board.spots[4] == board.spots[7] or board.spots[2] == board.spots[5] == board.spots[8]
 
     def diagonal_win(self, board):
-        if board.spots[0] == board.spots[4] == board.spots[8] or board.spots[2] == board.spots[4] == board.spots[6]:
-            return True
+        return board.spots[0] == board.spots[4] == board.spots[8] or board.spots[2] == board.spots[4] == board.spots[6]
 
     def win(self, board):
         return self.horizontal_win(board) or self.vertical_win(board) or self.diagonal_win(board)
@@ -23,5 +20,4 @@ class GameRules:
             return True
 
     def game_over(self, board):
-        if self.win(board) or self.tie(board):
-            return True
+        return self.win(board) or self.tie(board)
