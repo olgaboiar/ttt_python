@@ -1,9 +1,11 @@
 from human import Human
 from computer import Computer
+from rules import Rules
 
 class Game:
     def __init__(self, user_interface):
         self.user_interface = user_interface
+        self.rules = Rules()
 
     def start(self):
         self.user_interface.greet()
@@ -11,7 +13,7 @@ class Game:
     def play(self, board):
         current_player, current_marker, next_player, next_marker = self.create_players()
         self.user_interface.print_board(board)
-        while not self.game_over(board):
+        while not self.rules.game_over(board):
             move = current_player.choose_move(board)
             current_player.move(board, move, current_marker)
             self.user_interface.print_board(board)
@@ -25,27 +27,3 @@ class Game:
         marker2 = player1.define_marker(marker1)
         player2 = Computer(marker2)
         return player1, marker1, player2, marker2
-
-    def horizontal_win(self, board):
-        if board.spots[0] == board.spots[1] == board.spots[2] or board.spots[3] == board.spots[4] == board.spots[5] or board.spots[6] == board.spots[7] == board.spots[8]:
-            return True
-
-    def vertical_win(self, board):
-        if board.spots[0] == board.spots[3] == board.spots[6] or board.spots[1] == board.spots[4] == board.spots[7] or board.spots[2] == board.spots[5] == board.spots[8]:
-            return True
-
-    def diagonal_win(self, board):
-        if board.spots[0] == board.spots[4] == board.spots[8] or board.spots[2] == board.spots[4] == board.spots[6]:
-            return True
-
-    def win(self, board):
-        return self.horizontal_win(board) or self.vertical_win(board) or self.diagonal_win(board)
-
-    def tie(self, board):
-        available_spots = board.available_spots()
-        if not available_spots:
-            return True
-
-    def game_over(self, board):
-        if self.win(board) or self.tie(board):
-            return True
