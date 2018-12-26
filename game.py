@@ -1,5 +1,5 @@
-from player import Player
-from board import Board
+from human import Human
+from computer import Computer
 
 class Game:
     def __init__(self, user_interface):
@@ -12,7 +12,7 @@ class Game:
         current_player, current_marker, next_player, next_marker = self.create_players()
         self.user_interface.print_board(board)
         while not self.game_over(board):
-            move = self.user_interface.choose_move(board)
+            move = current_player.choose_move(board)
             current_player.move(board, move, current_marker)
             self.user_interface.print_board(board)
             current_player, next_player = next_player, current_player
@@ -21,11 +21,10 @@ class Game:
 
     def create_players(self):
         marker1 = self.user_interface.choose_marker()
-        player1 = Player(marker1)
+        player1 = Human(marker1)
         marker2 = player1.define_marker(marker1)
-        player2 = Player(marker2)
+        player2 = Computer(marker2)
         return player1, marker1, player2, marker2
-
 
     def horizontal_win(self, board):
         if board.spots[0] == board.spots[1] == board.spots[2] or board.spots[3] == board.spots[4] == board.spots[5] or board.spots[6] == board.spots[7] == board.spots[8]:

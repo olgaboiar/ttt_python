@@ -5,7 +5,7 @@ from board import Board
 class TestBoard(unittest.TestCase):
 
     def setUp(self):
-        self.computer = Computer()
+        self.computer = Computer('O')
         self.board = Board()
 
     def test_choose_random_move_when_empty_board(self):

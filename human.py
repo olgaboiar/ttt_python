@@ -1,9 +1,10 @@
-import random
 from player import Player
+from ui import Ui
 
-class Computer(Player):
+class Human(Player):
     def __init__(self, marker):
         Player.__init__(self, marker)
 
     def choose_move(self, board):
-        return random.choice(board.available_spots())
+        user_interface = Ui()
+        return user_interface.choose_move(board)
