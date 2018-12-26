@@ -1,17 +1,18 @@
 from player_factory import PlayerFactory
-from rules import Rules
+from game_rules import GameRules
 
 class Game:
     def __init__(self, user_interface):
         self.user_interface = user_interface
-        self.rules = Rules()
+        self.rules = GameRules()
         self.player_factory = PlayerFactory()
 
     def start(self):
         self.user_interface.greet()
 
     def play(self, board):
-        current_player, current_marker, next_player, next_marker = self.create_players()
+        player1, player2 = self.create_players()
+        current_player, current_marker, next_player, next_marker = self.set_current_player(player1, player2)
         self.user_interface.print_board(board)
         while not self.rules.game_over(board):
             move = current_player.choose_move(board)
@@ -26,4 +27,10 @@ class Game:
         player1 = self.player_factory.create_player('human', marker1)
         marker2 = player1.define_marker(marker1)
         player2 = self.player_factory.create_player('computer', marker2)
-        return player1, marker1, player2, marker2
+        return player1, player2
+
+    def set_current_player(self, player1, player2):
+        if player1.marker == 'X':
+            return player1, player1.marker, player2, player2.marker
+        
+        return player2, player2.marker, player1, player1.marker

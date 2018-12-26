@@ -1,11 +1,11 @@
 import unittest
 from board import Board
-from rules import Rules
+from game_rules import GameRules
 
 class RulesTest(unittest.TestCase):
     def setUp(self):
         self.board = Board()
-        self.rules = Rules()
+        self.rules = GameRules()
 
     def test_horizontal_win_when_first_row_is_all_x(self):
         self.board.spots = ['X', 'X', 'X', 'O', 'O', 6, 7, 8, 9]
