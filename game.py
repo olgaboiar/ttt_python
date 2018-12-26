@@ -1,11 +1,11 @@
-from human import Human
-from computer import Computer
+from player_factory import PlayerFactory
 from rules import Rules
 
 class Game:
     def __init__(self, user_interface):
         self.user_interface = user_interface
         self.rules = Rules()
+        self.player_factory = PlayerFactory()
 
     def start(self):
         self.user_interface.greet()
@@ -23,7 +23,7 @@ class Game:
 
     def create_players(self):
         marker1 = self.user_interface.choose_marker()
-        player1 = Human(marker1)
+        player1 = self.player_factory.create_player('human', marker1)
         marker2 = player1.define_marker(marker1)
-        player2 = Computer(marker2)
+        player2 = self.player_factory.create_player('computer', marker2)
         return player1, marker1, player2, marker2
