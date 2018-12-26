@@ -3,10 +3,10 @@ import sys
 from board import Board
 from player_factory import PlayerFactory
 
-@given('human player selects "O" as their symbol')
-def human_selects_o(context):
+@given('human player selects "{marker}" as their symbol')
+def human_selects_o(context, marker):
     context.player_factory = PlayerFactory()
-    user_input = io.StringIO('o')
+    user_input = io.StringIO(marker)
     sys.stdin = user_input
     marker1 = context.user_interface.choose_marker()
     sys.stdin = sys.__stdin__
