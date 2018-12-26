@@ -23,12 +23,6 @@ def game_over(context):
     output = captured_output.getvalue()
     assert 'Game over!' in output
 
-    # Scenario: diagonal win game over
-    #     Given new Game
-    #     And the board is one move away from a diagonal win
-    #     When player places the final move and diagonal win is reached
-    #     Then game over message is printed
-
 @given('the board is one move away from horizontal win')
 def game_horizontal_win(context):
     context.board = Board()

@@ -54,7 +54,7 @@ jobs:
           command: |
             . venv/bin/activate
             # python manage.py test
-            behave
+            # behave
             # run behave tests
             python -m unittest discover tests
             # run all unittests
