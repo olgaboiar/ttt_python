@@ -1,18 +1,21 @@
-from player import Player
-from board import Board
+from players.player_factory import PlayerFactory
+from game_rules import GameRules
 
 class Game:
     def __init__(self, user_interface):
         self.user_interface = user_interface
+        self.rules = GameRules()
+        self.player_factory = PlayerFactory()
 
     def start(self):
         self.user_interface.greet()
 
     def play(self, board):
-        current_player, current_marker, next_player, next_marker = self.create_players()
+        player1, player2 = self.create_players()
+        current_player, current_marker, next_player, next_marker = self.set_current_player(player1, player2)
         self.user_interface.print_board(board)
-        while not self.game_over(board):
-            move = self.user_interface.choose_move(board)
+        while not self.rules.game_over(board):
+            move = current_player.choose_move(board)
             current_player.move(board, move, current_marker)
             self.user_interface.print_board(board)
             current_player, next_player = next_player, current_player
@@ -21,32 +24,12 @@ class Game:
 
     def create_players(self):
         marker1 = self.user_interface.choose_marker()
-        player1 = Player(marker1)
+        player1 = self.player_factory.create_player('human', marker1)
         marker2 = player1.define_marker(marker1)
-        player2 = Player(marker2)
-        return player1, marker1, player2, marker2
+        player2 = self.player_factory.create_player('computer', marker2)
+        return player1, player2
 
-
-    def horizontal_win(self, board):
-        if board.spots[0] == board.spots[1] == board.spots[2] or board.spots[3] == board.spots[4] == board.spots[5] or board.spots[6] == board.spots[7] == board.spots[8]:
-            return True
-
-    def vertical_win(self, board):
-        if board.spots[0] == board.spots[3] == board.spots[6] or board.spots[1] == board.spots[4] == board.spots[7] or board.spots[2] == board.spots[5] == board.spots[8]:
-            return True
-
-    def diagonal_win(self, board):
-        if board.spots[0] == board.spots[4] == board.spots[8] or board.spots[2] == board.spots[4] == board.spots[6]:
-            return True
-
-    def win(self, board):
-        return self.horizontal_win(board) or self.vertical_win(board) or self.diagonal_win(board)
-
-    def tie(self, board):
-        available_spots = board.available_spots()
-        if not available_spots:
-            return True
-
-    def game_over(self, board):
-        if self.win(board) or self.tie(board):
-            return True
+    def set_current_player(self, player1, player2):
+        if player1.marker == 'X':
+            return player1, player1.marker, player2, player2.marker
+        return player2, player2.marker, player1, player1.marker

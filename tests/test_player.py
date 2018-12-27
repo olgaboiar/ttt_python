@@ -1,5 +1,6 @@
 import unittest
-from player import Player
+# from . import player
+from players.player import Player
 from board import Board
 
 class GameTest(unittest.TestCase):
