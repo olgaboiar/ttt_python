@@ -14,13 +14,14 @@ class Game:
         player1, player2 = self.create_players()
         current_player, current_marker, next_player, next_marker = self.set_current_player(player1, player2)
         self.user_interface.print_board(board)
-        while not self.rules.game_over(board):
+        while not self.rules.game_over(board, next_marker):
             move = current_player.choose_move(board)
             current_player.move(board, move, current_marker)
             self.user_interface.print_board(board)
             current_player, next_player = next_player, current_player
             current_marker, next_marker = next_marker, current_marker
         self.user_interface.game_over()
+        self.user_interface.declare_winner(board, next_marker)
 
     def create_players(self):
         marker1 = self.user_interface.choose_marker()
