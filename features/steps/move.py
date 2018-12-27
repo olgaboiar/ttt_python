@@ -1,7 +1,7 @@
 import io
 import sys
 from board import Board
-from player import Player
+from players.player import Player
 
 
 @given('first player selects "X" as their symbol')

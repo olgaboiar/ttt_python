@@ -1,7 +1,7 @@
 import io
 import sys
 from board import Board
-from player_factory import PlayerFactory
+from players.player_factory import PlayerFactory
 
 @given('human player selects "{marker}" as their symbol')
 def human_selects_o(context, marker):

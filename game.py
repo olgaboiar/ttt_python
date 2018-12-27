@@ -1,4 +1,4 @@
-from player_factory import PlayerFactory
+from players.player_factory import PlayerFactory
 from game_rules import GameRules
 
 class Game:

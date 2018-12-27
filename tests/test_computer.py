@@ -1,5 +1,5 @@
 import unittest
-from computer import Computer
+from players.computer import Computer
 from board import Board
 
 class TestBoard(unittest.TestCase):

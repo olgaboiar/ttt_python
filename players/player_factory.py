@@ -1,5 +1,5 @@
-from human import Human
-from computer import Computer
+from players.human import Human
+from players.computer import Computer
 
 class PlayerFactory:
     def __init__(self):
