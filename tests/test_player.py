@@ -1,5 +1,4 @@
 import unittest
-# from . import player
 from players.player import Player
 from board import Board
 
