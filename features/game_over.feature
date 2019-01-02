@@ -21,6 +21,7 @@ Feature: game over
         When player places the final move and vertical win is reached
         Then game over message is printed
 
+    @wip
     Scenario: diagonal win game over
         Given new Game
         And the board is one move away from a diagonal win
