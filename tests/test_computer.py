@@ -34,11 +34,11 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(score, 0)
 
     def test_next_player_when_last_was_x(self):
-        next_player = self.computer.next_player('X')
+        next_player = self.computer.switch_marker('X')
         self.assertEqual(next_player, 'O')
 
     def test_next_player_when_last_was_o(self):
-        next_player = self.computer.next_player('O')
+        next_player = self.computer.switch_marker('O')
         self.assertEqual(next_player, 'X')
 
     def test_best_move(self):

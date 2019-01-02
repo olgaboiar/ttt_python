@@ -8,7 +8,7 @@ class Computer(Player):
         self.rules = GameRules()
 
     def choose_move(self, board):
-        opponent = self.next_player(self.marker)
+        opponent = self.switch_marker(self.marker)
         self.best_move(board, opponent)
         return self.best_move_var
 
@@ -20,12 +20,6 @@ class Computer(Player):
         if self.rules.tie(board):
             return 0
 
-    def next_player(self, last_move):
-        if last_move == 'X':
-            return 'O'
-        else:
-            return 'X'
-
     def best_move(self, board, last_move, depth = 0):
         moves = []
         scores = []
@@ -35,7 +29,7 @@ class Computer(Player):
         
         for spot in board.available_spots():
             potential_board = copy.deepcopy(board)
-            current_move = self.next_player(last_move)
+            current_move = self.switch_marker(last_move)
             potential_board.insert_value(spot, current_move)
             scores.append(self.best_move(potential_board, current_move, depth + 1))
             moves.append(spot)

@@ -27,7 +27,7 @@ class Game:
     def create_players(self):
         marker1 = self.user_interface.choose_marker()
         player1 = self.player_factory.create_player('human', marker1)
-        marker2 = player1.define_marker(marker1)
+        marker2 = player1.switch_marker(marker1)
         player2 = self.player_factory.create_player('computer', marker2)
         return player1, player2
 

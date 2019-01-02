@@ -11,18 +11,6 @@ def game_almost_tie(context):
 def game_final_move_tie(context):
     context.board.insert_value(9, 'X')
 
-@then('game over message is printed')
-def game_over(context):
-    user_input = io.StringIO('x')
-    sys.stdin = user_input
-    captured_output = io.StringIO()
-    sys.stdout = captured_output
-    context.game.play(context.board)
-    sys.stdout = sys.__stdout__
-    sys.stdin = sys.__stdin__
-    output = captured_output.getvalue()
-    assert 'Game over!' in output
-
 @given('the board is one move away from horizontal win')
 def game_horizontal_win(context):
     context.board = Board()
@@ -49,3 +37,15 @@ def game_diagonal_win(context):
 @when('player places the final move and diagonal win is reached')
 def game_final_move_diagonal_win(context):
     context.board.insert_value(9, 'X')
+
+@then('game over message is printed')
+def game_over(context):
+    user_input = io.StringIO('x')
+    sys.stdin = user_input
+    captured_output = io.StringIO()
+    sys.stdout = captured_output
+    context.game.play(context.board)
+    sys.stdout = sys.__stdout__
+    sys.stdin = sys.__stdin__
+    output = captured_output.getvalue()
+    assert 'Game over!' in output
