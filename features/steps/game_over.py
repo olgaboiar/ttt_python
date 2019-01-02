@@ -23,20 +23,20 @@ def game_final_move_horizontal_win(context):
 @given('the board is one move away from vertical win')
 def game_vertical_win(context):
     context.board = Board()
-    context.board.spots = [1, 2, 'X', 'O', 'O', 'X', 7, 8, 9]
+    context.board.spots = [1, 2, 'O', 'X', 'X', 'O', 7, 8, 9]
 
 @when('player places the final move and vertical win is reached')
 def game_final_move_vertical_win(context):
-    context.board.insert_value(9, 'X')
+    context.board.insert_value(9, 'O')
 
 @given('the board is one move away from a diagonal win')
 def game_diagonal_win(context):
     context.board = Board()
-    context.board.spots = ['X', 'O', 3, 'O', 'X', 6, 7, 8, 9]
+    context.board.spots = ['O', 'X', 3, 'X', 'O', 6, 7, 8, 9]
 
 @when('player places the final move and diagonal win is reached')
 def game_final_move_diagonal_win(context):
-    context.board.insert_value(9, 'X')
+    context.board.insert_value(9, 'O')
 
 @then('game over message is printed')
 def game_over(context):

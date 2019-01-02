@@ -11,7 +11,7 @@ def game_starts(context):
     marker1 = context.user_interface.choose_marker()
     sys.stdin = sys.__stdin__
     context.player1 = Player(marker1)
-    marker2 = context.player1.define_marker(marker1)
+    marker2 = context.player1.switch_marker(marker1)
     context.player2 = Player(marker2)
 
 @given('new game board is printed')

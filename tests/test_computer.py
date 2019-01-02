@@ -41,10 +41,25 @@ class TestBoard(unittest.TestCase):
         next_player = self.computer.switch_marker('O')
         self.assertEqual(next_player, 'X')
 
-    def test_best_move(self):
-        self.board.spots = ['X', 'X', 'X', 'O', 'O', 6, 7, 8, 9]
-        spots = self.computer.best_move(self.board, 'X')
-        self.assertEqual(spots, -10)
+    def test_best_move_when_one_move_away_from_horizontal_win(self):
+        self.board.spots = ['X', 'X', 3, 'O', 'O', 6, 7, 8, 9]
+        best_move = self.computer.choose_move(self.board)
+        self.assertEqual(best_move, 6)
+
+    def test_best_move_when_one_and_nine_are_x(self):
+        self.board.spots = ['X', 2, 3, 4, 'O', 6, 7, 8, 'X']
+        best_move = self.computer.choose_move(self.board)
+        self.assertEqual(best_move, 2)
+
+    def test_best_move_when_human_made_a_move_on_one(self):
+        self.board.spots = ['X', 2, 3, 4, 5, 6, 7, 8, 9]
+        best_move = self.computer.choose_move(self.board)
+        self.assertEqual(best_move, 5)
+
+    def test_best_move_when_human_made_a_move_on_five_and_nine(self):
+        self.board.spots = ['O', 2, 3, 4, 'X', 6, 7, 8, 'X']
+        best_move = self.computer.choose_move(self.board)
+        self.assertEqual(best_move, 3)
 
 
 

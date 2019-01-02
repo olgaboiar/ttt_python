@@ -11,7 +11,7 @@ def human_selects_o(context, marker):
     marker1 = context.user_interface.choose_marker()
     sys.stdin = sys.__stdin__
     context.player1 = context.player_factory.create_player('human', marker1)
-    marker2 = context.player1.define_marker(marker1)
+    marker2 = context.player1.switch_marker(marker1)
     context.player2 = context.player_factory.create_player('computer', marker2)
 
 @when('computer makes a move')

@@ -29,11 +29,12 @@ class Computer(Player):
         
         for spot in board.available_spots():
             potential_board = copy.deepcopy(board)
+            initial_value = spot
             current_move = self.switch_marker(last_move)
             potential_board.insert_value(spot, current_move)
             scores.append(self.best_move(potential_board, current_move, depth + 1))
             moves.append(spot)
-            potential_board.insert_value(spot, spot)
+            potential_board.insert_value(spot, initial_value)
         if current_move == self.marker:
             max_index = scores.index(max(scores))
             self.best_move_var = moves[max_index]
