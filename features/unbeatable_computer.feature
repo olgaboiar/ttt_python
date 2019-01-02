@@ -1,4 +1,4 @@
-Feature: ubeatable computer
+Feature: unbeatable computer
   As a player,
   I want to play against an unbeatable computer player
   So that it is even more fun

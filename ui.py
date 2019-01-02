@@ -44,7 +44,7 @@ class Ui:
         print("Game over!")
 
     def declare_winner(self, board, marker):
-        if not board.available_spots():
-            print("It's a tie")
-        else:
+        if board.available_spots():
             print(f'{marker} wins!')
+        else:
+            print("It's a tie")
