@@ -34,7 +34,8 @@ jobs:
           #   computer_marker VARCHAR(1) NOT NULL,
           #   best_move INT);
           #   ALTER TABLE computer_best_moves ADD CONSTRAINT game_state UNIQUE (board_spots, computer_marker);"
-          psql -U root -d circle_test -a -f create_db.sql
+          # psql -U root -d circle_test -a -f create_db.sql
+          psql -f create_db.sql
 
 
       # Download and cache dependencies
