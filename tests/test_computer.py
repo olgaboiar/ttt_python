@@ -44,7 +44,7 @@ class TestBoard(unittest.TestCase):
     def test_best_move_when_one_move_away_from_horizontal_win(self):
         self.board.spots = ['X', 'X', 3, 'O', 'O', 6, 7, 8, 9]
         best_move = self.computer.choose_move(self.board)
-        self.assertEqual(best_move, 6)
+        self.assertEqual(best_move, 3)
 
     def test_best_move_when_one_and_nine_are_x(self):
         self.board.spots = ['X', 2, 3, 4, 'O', 6, 7, 8, 'X']
