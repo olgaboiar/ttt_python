@@ -29,15 +29,6 @@ jobs:
           psql \
           -d $TEST_DATABASE_URL \
           -f create_db.sql
-          # -c "CREATE TABLE computer_best_moves (
-          #   id SERIAL PRIMARY KEY,
-          #   board_spots VARCHAR(9) NOT NULL,
-          #   computer_marker VARCHAR(1) NOT NULL,
-          #   best_move INT);
-          #   ALTER TABLE computer_best_moves ADD CONSTRAINT game_state UNIQUE (board_spots, computer_marker);"
-          # psql -U root -d circle_test -a -f create_db.sql
-          # psql -f create_db.sql
-
 
       # Download and cache dependencies
       - restore_cache:
