@@ -11,12 +11,11 @@ class Computer(Player):
     def choose_move(self, board):
         opponent = self.switch_marker(self.marker)
         move = self.db.get_best_move_from_db(self.marker, board)
-
-        try:
+        if len(move.all()) == 1:
             return move[0].best_move
-        except IndexError:
-            self.best_move(board, opponent)
-            return self.best_move_var
+        self.best_move(board, opponent)
+        return self.best_move_var
+
 
     def move_score(self, board, last_move, depth):
         if self.rules.win(board, last_move) and last_move == self.marker:
