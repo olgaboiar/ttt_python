@@ -28,5 +28,5 @@ class DB:
 
     def insert_best_move_into_db(self, computer_marker, board, best_move):
         board_spots = ''.join(map(str, board.spots))
-        self.postgres_db.query('INSERT INTO computer_best_moves (board_spots, computer_marker, best_move) VALUES(:board_spots, :computer_marker, :best_move)',
+        self.postgres_db.query('INSERT INTO computer_best_moves (board_spots, computer_marker, best_move) VALUES(:board_spots, :computer_marker, :best_move) ON CONFLICT ON CONSTRAINT game_state DO NOTHING',
                 board_spots=board_spots, computer_marker=computer_marker, best_move=best_move)
