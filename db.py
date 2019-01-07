@@ -21,12 +21,10 @@ class DB:
         return params
 
     def get_best_move_from_db(self, computer_marker, board):
-        board_spots = ''.join(map(str, board.spots))
         query = "SELECT best_move FROM computer_best_moves WHERE computer_marker=:computer_marker AND board_spots=:board_spots"
-        move = self.postgres_db.query(query, computer_marker=computer_marker, board_spots=board_spots)
+        move = self.postgres_db.query(query, computer_marker=computer_marker, board_spots=board.spots_string())
         return move
 
     def insert_best_move_into_db(self, computer_marker, board, best_move):
-        board_spots = ''.join(map(str, board.spots))
         self.postgres_db.query('INSERT INTO computer_best_moves (board_spots, computer_marker, best_move) VALUES(:board_spots, :computer_marker, :best_move) ON CONFLICT ON CONSTRAINT game_state DO NOTHING',
-                board_spots=board_spots, computer_marker=computer_marker, best_move=best_move)
+                board_spots=board.spots_string(), computer_marker=computer_marker, best_move=best_move)

@@ -14,3 +14,6 @@ class Board:
 
     def all_spots(self):
         return self.spots
+
+    def spots_string(self):
+        return ''.join(map(str, self.spots))
