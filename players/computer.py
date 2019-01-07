@@ -1,32 +1,24 @@
 import copy
-import records
 from players.player import Player
 from game_rules import GameRules
-from config import config
+from db import DB
 
 class Computer(Player):
     def __init__(self, marker):
         Player.__init__(self, marker)
         self.rules = GameRules()
-        params = config()
-        self.db = records.Database(f"postgresql://{params['user']}:{params['password']}@{params['host']}:{params['port']}/{params['database']}")
+        self.init_db()
 
     def choose_move(self, board):
         opponent = self.switch_marker(self.marker)
-        board_spots = ''.join(map(str, board.spots))
-        computer_marker = self.marker
-        query = f"SELECT best_move FROM computer_best_moves WHERE computer_marker='{computer_marker}' AND board_spots='{board_spots}'"
-        move = self.db.query(query)
+        move = self.db.get_best_move_from_db(self.marker, board)
 
         try:
-            print("trying to get it from DB!!!!")
             return move[0].best_move
         except IndexError:
             self.best_move(board, opponent)
-            print("I got it from minimax!!!!")
             best_move = self.best_move_var
-            self.db.query('INSERT INTO computer_best_moves (board_spots, computer_marker, best_move) VALUES(:board_spots, :computer_marker, :best_move)',
-                board_spots=board_spots, computer_marker=computer_marker, best_move=best_move)
+            self.db.insert_best_move_into_db(self.marker, board, best_move)
             return self.best_move_var
 
     def move_score(self, board, last_move, depth):

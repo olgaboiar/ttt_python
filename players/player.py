@@ -1,6 +1,11 @@
+from db import DB
+
 class Player:
     def __init__(self, marker):
         self.marker = marker
+
+    def init_db(self):        
+        self.db = DB()
 
     def switch_marker(self, marker):
         if marker == 'O':
