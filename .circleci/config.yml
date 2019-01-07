@@ -26,14 +26,15 @@ jobs:
       - run: sudo apt-get install postgresql-client-9.6
       - run: whoami
       - run: |
-          psql \
-          -d $TEST_DATABASE_URL \
-          -c "CREATE TABLE computer_best_moves (
-            id SERIAL PRIMARY KEY,
-            board_spots VARCHAR(9) NOT NULL,
-            computer_marker VARCHAR(1) NOT NULL,
-            best_move INT);
-            ALTER TABLE computer_best_moves ADD CONSTRAINT game_state UNIQUE (board_spots, computer_marker);"
+          # psql \
+          # -d $TEST_DATABASE_URL \
+          # -c "CREATE TABLE computer_best_moves (
+          #   id SERIAL PRIMARY KEY,
+          #   board_spots VARCHAR(9) NOT NULL,
+          #   computer_marker VARCHAR(1) NOT NULL,
+          #   best_move INT);
+          #   ALTER TABLE computer_best_moves ADD CONSTRAINT game_state UNIQUE (board_spots, computer_marker);"
+          psql -U root -d circle_test -a -f create_db.sql
 
 
       # Download and cache dependencies
@@ -59,10 +60,6 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
         
       # run tests!
-      # this example uses Django's built-in test-runner
-      # other common Python testing frameworks include pytest and nose
-      # https://pytest.org
-      # https://nose.readthedocs.io
       - run:
           name: run tests
           command: |
