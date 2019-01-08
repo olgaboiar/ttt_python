@@ -3,16 +3,16 @@ from players.player import Player
 from game_rules import GameRules
 
 class Computer(Player):
-    def __init__(self, marker):
-        Player.__init__(self, marker)
+    def __init__(self, marker, db):
+        Player.__init__(self, marker, db)
         self.rules = GameRules()
-        self.init_db()
+        self.db = db
 
     def choose_move(self, board):
         opponent = self.switch_marker(self.marker)
         move = self.db.get_best_move_from_db(self.marker, board)
-        if len(move.all()) == 1:
-            return move[0].best_move
+        if move:
+            return move
         self.best_move(board, opponent)
         return self.best_move_var
 
@@ -40,13 +40,12 @@ class Computer(Player):
             scores.append(self.best_move(potential_board, current_move, depth + 1))
             moves.append(spot)
             potential_board.insert_value(spot, initial_value)
+
         if current_move == self.marker:
-            max_index = scores.index(max(scores))
-            self.best_move_var = moves[max_index]
-            self.db.insert_best_move_into_db(self.marker, board, self.best_move_var)
-            return scores[max_index]
+            index = scores.index(max(scores))
         else:
-            min_index = scores.index(min(scores))
-            self.best_move_var = moves[min_index]
-            self.db.insert_best_move_into_db(self.marker, board, self.best_move_var)
-            return scores[min_index]
+            index = scores.index(min(scores))
+
+        self.best_move_var = moves[index]
+        self.db.insert_best_move_into_db(self.marker, board, self.best_move_var)
+        return scores[index]

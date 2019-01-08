@@ -1,10 +1,12 @@
 import unittest
 from players.player import Player
 from board import Board
+from test_db import TestDB
 
 class GameTest(unittest.TestCase):
     def setUp(self):
-        self.player = Player('X')
+        self.test_db = TestDB()
+        self.player = Player('X', self.test_db)
         self.board = Board()
 
     def test_define_second_marker_automatically_when_the_first_one_is_o(self):

@@ -1,11 +1,13 @@
 from players.player_factory import PlayerFactory
 from game_rules import GameRules
+from db import DB
 
 class Game:
     def __init__(self, user_interface):
         self.user_interface = user_interface
         self.rules = GameRules()
         self.player_factory = PlayerFactory()
+        self.db = DB()
 
     def start(self):
         self.user_interface.greet()
@@ -26,9 +28,9 @@ class Game:
 
     def create_players(self):
         marker1 = self.user_interface.choose_marker()
-        player1 = self.player_factory.create_player('human', marker1)
+        player1 = self.player_factory.create_player('human', marker1, self.db)
         marker2 = player1.switch_marker(marker1)
-        player2 = self.player_factory.create_player('computer', marker2)
+        player2 = self.player_factory.create_player('computer', marker2, self.db)
         return player1, player2
 
     def set_current_player(self, player1, player2):

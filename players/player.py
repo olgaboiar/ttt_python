@@ -1,11 +1,12 @@
-from db import DB
+# from db import DB
 
 class Player:
-    def __init__(self, marker):
+    def __init__(self, marker, db):
         self.marker = marker
+        self.db = db
 
-    def init_db(self):        
-        self.db = DB()
+    # def init_db(self):        
+    #     self.db = DB()
 
     def switch_marker(self, marker):
         if marker == 'O':
