@@ -5,19 +5,20 @@ from config import config
 class DB:
     def __init__(self):
         params = self.read_config()
-        self.postgres_db = records.Database(f"postgresql://{params['user']}:{params['password']}@{params['host']}:{params['port']}/{params['database']}")
+        self.postgres_db = records.Database(f"{params['driver']}://{params['user']}:{params['password']}@{params['host']}:{params['port']}/{params['database']}")
 
     def read_config(self):
         params = {}
-        params['user'] = os.environ.get('TTT_DB_USER', None)
-        if params['user']:
+        params['driver'] = os.environ.get('TTT_DB_DRIVER', None)
+        if params['driver']:
+            params['user'] = os.environ.get('TTT_DB_USER', None)
             params['password'] = os.environ.get('TTT_DB_PASSWORD', None)
             params['host'] = os.environ.get('TTT_DB_HOST', None)
             params['port'] = os.environ.get('TTT_DB_PORT', None)
             params['database'] = os.environ.get('TTT_DB_NAME', None)
         else:
             params = config()
-
+        print(params)
         return params
 
     def get_best_move_from_db(self, computer_marker, board):
