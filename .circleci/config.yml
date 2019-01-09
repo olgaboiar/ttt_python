@@ -8,21 +8,27 @@ jobs:
     # branches:
     #   only:
     #     - master
-        
-    docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: circleci/python:3.6.1
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
 
+    docker:
+      - image: circleci/python:3.6.2-stretch-browsers
+        environment:
+          TEST_DATABASE_URL: postgresql://root@localhost/circle_test
+          
+    # Service container image
+    
+      - image: circleci/postgres:9.6.5-alpine-ram
+    
     working_directory: ~/ttt_python
 
     steps:
       - checkout
+      - run: sudo apt-get update
+      - run: sudo apt-get install postgresql-client-9.6
+      - run: whoami
+      - run: |
+          psql \
+          -d $TEST_DATABASE_URL \
+          -f create_db.sql
 
       # Download and cache dependencies
       - restore_cache:
@@ -38,6 +44,8 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
             pip install behave
+            pip install psycopg2
+            pip install records[pandas]
 
       - save_cache:
           paths:
@@ -45,10 +53,6 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
         
       # run tests!
-      # this example uses Django's built-in test-runner
-      # other common Python testing frameworks include pytest and nose
-      # https://pytest.org
-      # https://nose.readthedocs.io
       - run:
           name: run tests
           command: |

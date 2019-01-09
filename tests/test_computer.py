@@ -1,11 +1,13 @@
 import unittest
 from players.computer import Computer
 from board import Board
+from test_db import TestDB
 
 class TestBoard(unittest.TestCase):
 
     def setUp(self):
-        self.computer = Computer('O')
+        self.test_db = TestDB()
+        self.computer = Computer('O', self.test_db)
         self.board = Board()
 
     def test_choose_best_move_when_first_cell_is_taken_on_board(self):

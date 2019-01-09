@@ -1,2 +1,4 @@
 env
 __pycache__
+database.ini
+.DS_Store
